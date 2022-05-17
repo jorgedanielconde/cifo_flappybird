@@ -345,18 +345,18 @@ def main(win):
         #pygame.time.delay(1)
         clock.tick(300)
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-                pygame.quit()
-                quit()
-                break
+        # for event in pygame.event.get():
+        #     if event.type == pygame.QUIT:
+        #         run = False
+        #         pygame.quit()
+        #         quit()
+        #         break
 
-            if event.type == pygame.KEYDOWN and not lost:
-                if event.key == pygame.K_SPACE:
-                    if not start:
-                        start = True
-                    bird.jump()
+        #     if event.type == pygame.KEYDOWN and not lost:
+        #         if event.key == pygame.K_SPACE:
+        #             if not start:
+        #                 start = True
+        #             bird.jump()
 
         # Move Bird, base and pipes
         if start:

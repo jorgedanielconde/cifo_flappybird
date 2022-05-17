@@ -351,7 +351,7 @@ def main(win, nn = None):
     run = True
     while run:
         #pygame.time.delay(30)
-        clock.tick(600)
+        clock.tick(3000)
 
         # do prediction at every iteration whether the bird should flap
         gameStateVariables = np.array([bird.x, bird.y, bird.vel, pipes[-1].top, pipes[-1].bottom]).reshape(1, 5)
@@ -432,7 +432,7 @@ def main(win, nn = None):
         draw_window(WIN, bird, pipes, base, score)
 
 
-    end_screen(WIN)
+    #end_screen(WIN)
 
     return score
 
