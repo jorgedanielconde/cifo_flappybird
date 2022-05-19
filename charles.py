@@ -1,5 +1,7 @@
 from random import uniform, random, choice
 from operator import attrgetter
+import time
+
 
 
 class Individual:
@@ -61,6 +63,9 @@ class Population:
 
     def evolve(self, gens, select, tournamentSize, crossover, mutate, crossoverProbab, mutationProbab, elitism):
         for gen in range(gens):
+            
+            startTime = time.time()
+    
             newPop = []
             popSizeOdd = (self.size % 2 == 1)
 
@@ -94,7 +99,9 @@ class Population:
                 newPop.append(offspring2)
 
             self.individuals = newPop
-            print(f'Gen {gen} Best: {max(self.individuals, key=attrgetter("fitness"))}')
+            endTime = time.time()
+            timeTook = endTime - startTime
+            print(f'Gen {gen} took {round(timeTook)} seconds, Best fitness: {max(self.individuals, key=attrgetter("fitness")).fitness}')
     
 
     def __len__(self):

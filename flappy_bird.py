@@ -334,6 +334,7 @@ def main(win, nn = None):
     :param win: pygame window surface
     :return: None
     """
+    
 
     if nn == None:
         nn = Sequential()
@@ -344,7 +345,6 @@ def main(win, nn = None):
     score = 0
 
     clock = pygame.time.Clock()
-    #start = False
     start = True
     lost = False
 
@@ -359,22 +359,6 @@ def main(win, nn = None):
         flapProbab = nn.predict(gameStateVariables)
         if flapProbab[0] > 0.5:
             bird.jump()
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                #update score by adding relative dist to next pipe
-                score += (1- calc_euc_dist(bird.x, bird.y, pipes[-1].x, pipes[-1].height) / MAX_DIST)
-                print('returned with score: ', score)
-                run = False
-                pygame.quit()
-                quit()
-                break
-
-            if event.type == pygame.KEYDOWN and not lost:
-                if event.key == pygame.K_SPACE:
-                    if not start:
-                        start = True
-                    bird.jump()
 
         # Move Bird, base and pipes
         if start:
@@ -393,7 +377,7 @@ def main(win, nn = None):
                         run = False
                         #update score by adding relative dist to next pipe
                         score += (1- calc_euc_dist(bird.x, bird.y, pipes[-1].x, pipes[-1].height) / MAX_DIST)
-                        print('returned with score: ', score)
+                        #print('returned with score: ', score)
                         return score
                         pygame.quit()
                         quit()
@@ -418,7 +402,7 @@ def main(win, nn = None):
             #print('touched floor)
             #update score by adding relative dist to next pipe
             score += (1- calc_euc_dist(bird.x, bird.y, pipes[-1].x, pipes[-1].height) / MAX_DIST)
-            print('returned with score: ', score)
+            #print('returned with score: ', score)
             return score
 
         
@@ -426,10 +410,10 @@ def main(win, nn = None):
             #print('touched roof')
             #update score by adding relative dist to next pipe
             score += (1- calc_euc_dist(bird.x, bird.y, pipes[-1].x, pipes[-1].height) / MAX_DIST)
-            print('returned with score: ', score)
+            #print('returned with score: ', score)
             return score
 
-        draw_window(WIN, bird, pipes, base, score)
+        #draw_window(WIN, bird, pipes, base, score)
 
 
     #end_screen(WIN)
