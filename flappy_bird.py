@@ -356,7 +356,7 @@ def main(win, nn = None):
         # do prediction at every iteration whether the bird should flap
         gameStateVariables = np.array([bird.x, bird.y, bird.vel, pipes[-1].top, pipes[-1].bottom]).reshape(1, 5)
         
-        flapProbab = nn.predict(gameStateVariables)
+        flapProbab = nn.forward(gameStateVariables)
         if flapProbab[0] > 0.5:
             bird.jump()
 
@@ -413,7 +413,7 @@ def main(win, nn = None):
             #print('returned with score: ', score)
             return score
 
-        #draw_window(WIN, bird, pipes, base, score)
+        draw_window(WIN, bird, pipes, base, score)
 
 
     #end_screen(WIN)
