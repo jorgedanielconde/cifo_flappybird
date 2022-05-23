@@ -152,7 +152,7 @@ class Pipe():
         """
         self.x = x
         self.height = 0
-        self.gap = 100  # gap between top and bottom pipe
+        self.gap =100  # gap between top and bottom pipe
 
         # where the top and bottom of the pipe is
         self.top = 0
@@ -171,7 +171,7 @@ class Pipe():
         :return: None
         """
         self.height = random.randrange(50, 450)
-        self.top = self.height - self.PIPE_TOP.get_height()
+        self.top = self.height - self.PIPE_TOP.get_height() #that is (self.height - 640), Nico computed it manually
         self.bottom = self.height + self.GAP
 
     def move(self):
@@ -351,10 +351,11 @@ def main(win, nn = None):
     run = True
     while run:
         #pygame.time.delay(30)
-        clock.tick(3000)
+        clock.tick(6000)
 
         # do prediction at every iteration whether the bird should flap
-        gameStateVariables = np.array([bird.x, bird.y, bird.vel, pipes[-1].top, pipes[-1].bottom]).reshape(1, 5)
+        gameStateVariables = np.array([bird.x, bird.y, pipes[-1].x, pipes[-1].height+(Pipe.GAP/2)]).reshape(1, 4)
+        #print(np.array([bird.y, bird.x, pipes[-1].height+(Pipe.GAP/2), pipes[-1].x, Pipe.GAP]).reshape(1, 5))
         
         flapProbab = nn.forward(gameStateVariables)
         if flapProbab[0] > 0.5:
@@ -376,7 +377,7 @@ def main(win, nn = None):
                         lost = True
                         run = False
                         #update score by adding relative dist to next pipe
-                        score += (1- calc_euc_dist(bird.x, bird.y, pipes[-1].x, pipes[-1].height) / MAX_DIST)
+                        score += (1- calc_euc_dist(bird.x, bird.y, pipes[-1].x, pipes[-1].height+(Pipe.GAP/2)) / MAX_DIST)
                         #print('returned with score: ', score)
                         return score
                         pygame.quit()
@@ -401,7 +402,7 @@ def main(win, nn = None):
         if bird.y + bird_images[0].get_height() - 10 >= FLOOR:
             #print('touched floor)
             #update score by adding relative dist to next pipe
-            score += (1- calc_euc_dist(bird.x, bird.y, pipes[-1].x, pipes[-1].height) / MAX_DIST)
+            score += (1- calc_euc_dist(bird.x, bird.y, pipes[-1].x, pipes[-1].height+(Pipe.GAP/2)) / MAX_DIST)
             #print('returned with score: ', score)
             return score
 
@@ -409,7 +410,7 @@ def main(win, nn = None):
         if bird.y + bird_images[0].get_height() + 10 <= ROOF:
             #print('touched roof')
             #update score by adding relative dist to next pipe
-            score += (1- calc_euc_dist(bird.x, bird.y, pipes[-1].x, pipes[-1].height) / MAX_DIST)
+            score += (1- calc_euc_dist(bird.x, bird.y, pipes[-1].x, pipes[-1].height+(Pipe.GAP/2)) / MAX_DIST)
             #print('returned with score: ', score)
             return score
 

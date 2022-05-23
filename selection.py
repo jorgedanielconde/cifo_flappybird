@@ -1,7 +1,7 @@
 from random import uniform, choice
 from operator import attrgetter
 
-def fps(population):
+def fps(population, tournamentSize = None):
     """Fitness proportionate selection implementation.
 
     Args:

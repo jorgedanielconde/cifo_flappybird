@@ -8,7 +8,7 @@ from mutation import binary_mutation
 Individual.calc_fitness = calc_fitness
 
 # define population params
-popSize = 25
+popSize = 50
 problemType = 'max'
 solSize = 6
 validSet = [-1, 1]
@@ -20,8 +20,8 @@ print('Population created: ', pop)
 
 # define evolution params
 numberOfGenerations = 100
-selectionAlg = tournament
-tournamentSize = 4  # set to None if selectionAlg is not tournament
+selectionAlg = fps
+tournamentSize = None  # set to None if selectionAlg is not tournament
 crossoverAlg = single_point_co
 crossoverProbab = 0.8
 mutationAlg = binary_mutation

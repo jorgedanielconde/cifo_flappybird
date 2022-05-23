@@ -66,7 +66,7 @@ base_img = pygame.transform.scale2x(pygame.image.load(os.path.join("imgs","base.
 class neural_network(object):
   def __init__(self,weightList):
     #parameters
-    self.inputSize = 5
+    self.inputSize = 4
     self.outputSize = 1
     self.hiddenSize = 6
 
@@ -95,9 +95,9 @@ def calc_fitness(self, numberOfRepeats = 1):
     avgScore = 0
     weightList = self.representation
     #print('indiv weight list: ', weightList)
+    nn = neural_network(weightList)
     for _ in range(numberOfRepeats): 
         currentScore = 0
-        nn = neural_network(weightList)
         #print('nn weights', nn.layers[0].get_weights()[0])
         currentScore = play_flappy_bird(nn)
         avgScore += currentScore
