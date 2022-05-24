@@ -18,7 +18,7 @@ from math import sqrt
 
 WIN_WIDTH = 600
 WIN_HEIGHT = 800
-MAX_DIST = sqrt((WIN_WIDTH ** 2 ) + (WIN_HEIGHT ** 2))
+MAX_DIST = sqrt((375 ** 2 ) + (WIN_HEIGHT ** 2)) #I put 375 instead of WIN_WIDTH since that's the fixed dist between pipes, this will provide a better estimation of the score (Nico)
 PIPE_VEL = 3
 FLOOR = 730
 ROOF = 10

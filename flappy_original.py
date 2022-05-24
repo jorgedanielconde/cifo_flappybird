@@ -315,7 +315,15 @@ def draw_window(win, bird, pipes, base, score):
 
     # score
     score_label = STAT_FONT.render("Score: " + str(score),1,(255,255,255))
+    dist_label = STAT_FONT.render("Distance: " + str(round(calc_euc_dist(bird.x, bird.y, pipes[-1].x, pipes[-1].height+(Pipe.GAP/2)))),1,(255,255,255))
+    real_dist_label = STAT_FONT.render("Real dist: " + str(round(1-(calc_euc_dist(bird.x, bird.y, pipes[-1].x, pipes[-1].height+(Pipe.GAP/2)) / MAX_DIST),2)),1,(255,255,255))
+
+
     win.blit(score_label, (WIN_WIDTH - score_label.get_width() - 15, 10))
+    win.blit(dist_label, (WIN_WIDTH - dist_label.get_width() - 15, 50))
+    win.blit(real_dist_label, (WIN_WIDTH - dist_label.get_width() - 15, 90))
+
+
 
     pygame.display.update()
 
@@ -342,21 +350,21 @@ def main(win):
 
     run = True
     while run:
-        #pygame.time.delay(1)
-        clock.tick(300)
+        pygame.time.delay(30)
+        clock.tick(60)
 
-        # for event in pygame.event.get():
-        #     if event.type == pygame.QUIT:
-        #         run = False
-        #         pygame.quit()
-        #         quit()
-        #         break
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+                pygame.quit()
+                quit()
+                break
 
-        #     if event.type == pygame.KEYDOWN and not lost:
-        #         if event.key == pygame.K_SPACE:
-        #             if not start:
-        #                 start = True
-        #             bird.jump()
+            if event.type == pygame.KEYDOWN and not lost:
+                if event.key == pygame.K_SPACE:
+                    if not start:
+                        start = True
+                    bird.jump()
 
         # Move Bird, base and pipes
         if start:
@@ -387,9 +395,9 @@ def main(win):
                 for r in rem:
                     pipes.remove(r)
         
-        print('dist ', calc_euc_dist(bird.x, bird.y, pipes[-1].x, pipes[-1].height))
-        print('rel dist ', calc_euc_dist(bird.x, bird.y, pipes[-1].x, pipes[-1].height) / MAX_DIST)
-        print(bird.x, bird.y, pipes[-1].x, pipes[-1].height)
+        print('dist ', calc_euc_dist(bird.x, bird.y, pipes[-1].x, pipes[-1].height+(Pipe.GAP/2)))
+        print('rel dist ', calc_euc_dist(bird.x, bird.y, pipes[-1].x, pipes[-1].height+(Pipe.GAP/2)) / MAX_DIST)
+        print(bird.x, bird.y, pipes[-1].x, pipes[-1].height+(Pipe.GAP/2))
 
         if bird.y + bird_images[0].get_height() - 10 >= FLOOR:
             print('touched florr')

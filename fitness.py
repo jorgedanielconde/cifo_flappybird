@@ -108,7 +108,6 @@ def calc_fitness(self, numberOfRepeats = 1):
     # for test purposes 2 - to be deleted once the fitness can be calculated by playing the game
     #dummyFitness = sum(self.representation[:3]) - sum(self.representation[3:])
  
-
     #return dummyFitness
     return avgScore / numberOfRepeats
 

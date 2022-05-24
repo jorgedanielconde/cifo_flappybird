@@ -116,7 +116,10 @@ class Population:
     def get_elite(self):
         ''' Retrieve the individual with the best fitness'''
         elite = self.individuals[0]
+        #print(elite.get_fitness())
         for ind in self.individuals[1:]:
+            #print(ind.get_fitness(),elite.get_fitness()) #to be deleted: Test to see why sometimes get_elite doesn't work
             if ind.get_fitness() > elite.get_fitness():
                 elite = ind
+        #elite = max(self.individuals, key=attrgetter("fitness"))   #Alternative
         return elite
