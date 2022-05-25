@@ -62,8 +62,10 @@ params = {
 
 
 #df where to store all the evolve output
+# -------------------------------
 #  Columns: n-th of generation
-#  Rows: fitnesses for each of the evolve in the subsequent for loop 
+#  Rows: fitnesses for each of the pop.evolve in the subsequent for loop 
+# -------------------------------
 df = pd.DataFrame(columns=np.arange(0,100,1).tolist()) 
 print(df)
 
@@ -74,5 +76,7 @@ print(df)
 keys = list(params)
 for values in itertools.product(*map(params.get, keys)):
     #myfunc(**dict(zip(keys, values)))
-    pop.evolve(values[0],values[1],values[2],values[3],values[4],values[5],values[6],values[7])
+    pop.evolve(*values) #*values unpacks the values of the list of parameters as arguments to the function, otherwise they would be 1 argument
     evolvedBestSolution = pop.get_elite()
+
+    ##append list of fitness (that has to be created in charles.py) to the df 
