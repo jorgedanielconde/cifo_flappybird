@@ -1,8 +1,8 @@
 from charles import Population, Individual
 from fitness import calc_fitness
 from selection import fps, tournament
-from crossover import single_point_co
-from mutation import binary_mutation
+from crossover import single_point_co, cycle_co, pmx_co, arithmetic_co
+from mutation import binary_mutation, swap_mutation, inversion_mutation
 
 # Monkey Patching
 Individual.calc_fitness = calc_fitness
@@ -22,9 +22,9 @@ print('Population created: ', pop)
 numberOfGenerations = 100
 selectionAlg = tournament
 tournamentSize = 10  # set to None if selectionAlg is not tournament
-crossoverAlg = single_point_co
+crossoverAlg = arithmetic_co
 crossoverProbab = 0.8
-mutationAlg = binary_mutation
+mutationAlg = inversion_mutation
 mutationProbab = 0.3
 elitism = True
 

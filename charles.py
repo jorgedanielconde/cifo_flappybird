@@ -47,6 +47,9 @@ class Individual:
     def __repr__(self):
         return f"Individual: {self.representation}, Fitness: {self.fitness}"
 
+    ##
+    def index(self, value):
+        return self.representation.index(value)
 
 class Population:
     def __init__(self, size, optim, **kwargs):
@@ -72,6 +75,7 @@ class Population:
             # select the best indiv in the pop and add it to newPop
             if elitism:
                 elite = self.get_elite()
+                #print(elite.get_fitness())
                 if popSizeOdd:
                     # when popsize is odd simply add elitism is true simply add the elite member to the newPop
                     newPop.append(elite)

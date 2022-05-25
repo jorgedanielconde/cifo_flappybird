@@ -1,8 +1,8 @@
 from charles import Population, Individual
 from fitness import calc_fitness
 from selection import fps, tournament
-from crossover import single_point_co #cycle_co, pmx_co
-from mutation import binary_mutation #,swap_mutation, inversion_mutation
+from crossover import single_point_co, cycle_co, pmx_co, arithmetic_co
+from mutation import binary_mutation, swap_mutation, inversion_mutation
 
 import itertools
 import pandas as pd
@@ -50,12 +50,12 @@ evolvedBestSolution = pop.get_elite()
 #grid search
 params = {
          'numberOfGenerations':[100, 200],
-         'selectionAlg':[tournament,fps],
+         'selectionAlg':[tournament], #fps is another option, Berfin said tournament will probably perform better
          'tournamentSize':[4, 15, 40],
-         'crossoverAlgo':[single_point_co,'cycle_co','pmx_co'],
-         'mutationAlg':[binary_mutation, 'swap_mutation', 'inversion_mutation'],
-         'crossoverProbab':[0.5, 0.8],
-         'mutationProbab':[0.3, 0.6],
+         'crossoverAlgo':[single_point_co, cycle_co, pmx_co, arithmetic_co],
+         'mutationAlg':[binary_mutation, swap_mutation, inversion_mutation],
+         'crossoverProbab':[0.9],
+         'mutationProbab':[0.1],
          'elitism': [True]
          }
 
