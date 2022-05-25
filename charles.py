@@ -23,7 +23,7 @@ class Individual:
         else:
             self.representation = representation
 
-        self.fitness = self.calc_fitness(numberOfRepeats = 3)
+        self.fitness = self.calc_fitness(numberOfRepeats = 3) #set here the number of repeats for each bird, deafult is 1
     
     def update_fitness(self):
         ''' Recalculate fitness - to be used after mutation'''
