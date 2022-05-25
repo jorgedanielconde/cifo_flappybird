@@ -20,8 +20,8 @@ print('Population created: ', pop)
 
 # define evolution params
 numberOfGenerations = 100
-selectionAlg = fps
-tournamentSize = None  # set to None if selectionAlg is not tournament
+selectionAlg = tournament
+tournamentSize = 10  # set to None if selectionAlg is not tournament
 crossoverAlg = single_point_co
 crossoverProbab = 0.8
 mutationAlg = binary_mutation

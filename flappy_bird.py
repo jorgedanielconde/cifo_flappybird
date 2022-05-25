@@ -354,9 +354,18 @@ def main(win, nn = None):
         clock.tick(6000)
 
         # do prediction at every iteration whether the bird should flap
+        #if pipes[-1].x-bird.x <= :
+        
         gameStateVariables = np.array([bird.x, bird.y, pipes[-1].x, pipes[-1].height+(Pipe.GAP/2)]).reshape(1, 4)
         #print(np.array([bird.y, bird.x, pipes[-1].height+(Pipe.GAP/2), pipes[-1].x, Pipe.GAP]).reshape(1, 5))
         
+        if len(pipes)>1:
+            if bird.x-pipes[-2].x<105:#width of the pipe=104px 
+                gameStateVariables = np.array([bird.x, bird.y, pipes[-2].x+105, pipes[-1].height+(Pipe.GAP/2)]).reshape(1, 4)
+
+        #else:
+            #print('pipe n. 2 doesn\'t exist')
+
         flapProbab = nn.forward(gameStateVariables)
         if flapProbab[0] > 0.5:
             bird.jump()
