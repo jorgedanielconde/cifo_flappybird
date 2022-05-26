@@ -66,7 +66,7 @@ base_img = pygame.transform.scale2x(pygame.image.load(os.path.join("imgs","base.
 class neural_network(object):
   def __init__(self,weightList):
     #parameters
-    self.inputSize = 4
+    self.inputSize = 2
     self.outputSize = 1
     self.hiddenSize = 6
 

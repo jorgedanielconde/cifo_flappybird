@@ -7,7 +7,7 @@ import time
 class Individual:
     ''' Holds a weight set that can be used for the neural network '''
     
-    def __init__(self, representation = None, size = 5, valid_set = [0, 1], nnNumberOfInputs = 4):
+    def __init__(self, representation = None, size = 5, valid_set = [0, 1], nnNumberOfInputs = 2):
         # TODO size and nnNumberofInputs refer to the same thing, figure this out!!
         self.representation = []
         self.valid_set = valid_set
