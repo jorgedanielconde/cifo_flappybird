@@ -320,6 +320,12 @@ def draw_window(win, bird, pipes, base, score):
     score_label = STAT_FONT.render("Score: " + str(score),1,(255,255,255))
     win.blit(score_label, (WIN_WIDTH - score_label.get_width() - 15, 10))
 
+    #red points with coordinates pipe.x and pipe.y given as input to the neural network 
+    pygame.draw.circle(WIN,(255,0,0),(pipes[-1].x,pipes[-1].height+(Pipe.GAP/2)),5)
+    if len(pipes)>1:
+            if bird.x-pipes[-2].x<105:#width of the pipe=104px 
+                pygame.draw.circle(WIN,(255,0,0),(pipes[-2].x+105,pipes[-2].height+(Pipe.GAP/2)),5)
+
     pygame.display.update()
 
 def calc_euc_dist(vec1x, vec1y, vec2x, vec2y):
@@ -361,7 +367,7 @@ def main(win, nn = None):
         
         if len(pipes)>1:
             if bird.x-pipes[-2].x<105:#width of the pipe=104px 
-                gameStateVariables = np.array([bird.x, bird.y, pipes[-2].x+105, pipes[-1].height+(Pipe.GAP/2)]).reshape(1, 4)
+                gameStateVariables = np.array([bird.x, bird.y, pipes[-2].x+105, pipes[-2].height+(Pipe.GAP/2)]).reshape(1, 4)
 
         #else:
             #print('pipe n. 2 doesn\'t exist')

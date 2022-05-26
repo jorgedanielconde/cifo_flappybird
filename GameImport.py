@@ -8,7 +8,7 @@ from mutation import binary_mutation, swap_mutation, inversion_mutation
 Individual.calc_fitness = calc_fitness
 
 # define population params
-popSize = 50
+popSize = 25
 problemType = 'max'
 solSize = 6
 validSet = [-1, 1]
@@ -22,9 +22,9 @@ print('Population created: ', pop)
 numberOfGenerations = 100
 selectionAlg = tournament
 tournamentSize = 10  # set to None if selectionAlg is not tournament
-crossoverAlg = arithmetic_co
+crossoverAlg = pmx_co
 crossoverProbab = 0.8
-mutationAlg = inversion_mutation
+mutationAlg = swap_mutation
 mutationProbab = 0.3
 elitism = True
 
