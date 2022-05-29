@@ -320,12 +320,18 @@ def draw_window(win, bird, pipes, base, score):
     score_label = STAT_FONT.render("Score: " + str(score),1,(255,255,255))
     win.blit(score_label, (WIN_WIDTH - score_label.get_width() - 15, 10))
 
+
     #red points with coordinates pipe.x and pipe.y given as input to the neural network 
     pygame.draw.circle(WIN,(255,0,0),(pipes[-1].x,pipes[-1].height+(Pipe.GAP/2)),5)
     if len(pipes)>1:
             if bird.x-pipes[-2].x<105:#width of the pipe=104px 
                 pygame.draw.circle(WIN,(255,0,0),(pipes[-2].x+105,pipes[-2].height+(Pipe.GAP/2)),5)
-
+    '''
+    pygame.draw.circle(WIN,(255,0,0),(pipes[-1].x+55,pipes[-1].height+(Pipe.GAP/2)),5)
+    if len(pipes)>1:
+        if bird.x-pipes[-2].x<55:# half width of the pipe= 104/2 px
+            pygame.draw.circle(WIN,(255,0,0),(pipes[-2].x+55,pipes[-2].height+(Pipe.GAP/2)),5)
+    '''
     pygame.display.update()
 
 def calc_euc_dist(vec1x, vec1y, vec2x, vec2y):
@@ -358,16 +364,22 @@ def main(win, nn = None):
     while run:
         #pygame.time.delay(30)
         clock.tick(6000)
-        
-        gameStateVariables = np.array([pipes[-1].x-bird.x, pipes[-1].height+(Pipe.GAP/2)-bird.y]).reshape(1, 2)
+
+        ''' #VERSION OF INPUTS IN WHICH THE COORDINATES OF THE PIPE GETS UPDATED AT THE BEGINNING OF THE PIPE AND AT THE END OF THE PIPE (TWO POINTS)'''
+        gameStateVariables = np.array([pipes[-1].x-bird.x, pipes[-1].height+(Pipe.GAP/2),bird.y]).reshape(1, 3)
         #print(np.array([bird.y, bird.x, pipes[-1].height+(Pipe.GAP/2), pipes[-1].x, Pipe.GAP]).reshape(1, 5))
         
         if len(pipes)>1:
             if bird.x-pipes[-2].x<105:#width of the pipe=104px 
-                gameStateVariables = np.array([pipes[-2].x+105-bird.x, pipes[-2].height+(Pipe.GAP/2)-bird.y]).reshape(1, 2)
-
+                gameStateVariables = np.array([pipes[-2].x+105-bird.x, pipes[-2].height+(Pipe.GAP/2),bird.y]).reshape(1, 3)
         #else:
             #print('pipe n. 2 doesn\'t exist')
+        '''#VERSION ONE POINT IN THE MIDDLE
+        gameStateVariables = np.array([pipes[-1].x+55-bird.x, pipes[-1].height+(Pipe.GAP/2)-bird.y]).reshape(1, 2)
+        if len(pipes)>1:
+            if bird.x-pipes[-2].x<55:# half width of the pipe= 104/2 px 
+                gameStateVariables = np.array([pipes[-2].x+55-bird.x, pipes[-2].height+(Pipe.GAP/2)-bird.y]).reshape(1, 2)
+        '''
 
         flapProbab = nn.forward(gameStateVariables)
         if flapProbab[0] > 0.5:
@@ -406,6 +418,11 @@ def main(win, nn = None):
                 if add_pipe:
                     score += 1
                     pipes.append(Pipe(WIN_WIDTH))
+                    #early stopping
+                    if score>=100:
+                        print("God bird found!")
+                        return score
+
 
                 for r in rem:
                     pipes.remove(r)

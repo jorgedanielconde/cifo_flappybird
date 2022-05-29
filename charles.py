@@ -1,13 +1,14 @@
 from random import uniform, random, choice
 from operator import attrgetter
 import time
+import statistics
 
 
 
 class Individual:
     ''' Holds a weight set that can be used for the neural network '''
     
-    def __init__(self, representation = None, size = 5, valid_set = [0, 1], nnNumberOfInputs = 2):
+    def __init__(self, representation = None, size = 5, valid_set = [0, 1], nnNumberOfInputs = 3):
         # TODO size and nnNumberofInputs refer to the same thing, figure this out!!
         self.representation = []
         self.valid_set = valid_set
@@ -56,6 +57,7 @@ class Population:
         self.individuals = []
         self.size = size
         self.optim = optim
+        self.all_fitness_score=[]
         for _ in range(size):
             self.individuals.append(
                 Individual(
@@ -66,11 +68,12 @@ class Population:
 
     def evolve(self, gens, select, tournamentSize, crossover, mutate, crossoverProbab, mutationProbab, elitism):
         for gen in range(gens):
-            
+            self.all_fitness_score=[]
             startTime = time.time()
     
             newPop = []
             popSizeOdd = (self.size % 2 == 1)
+            #list_of_ind_fit=[]
 
             # select the best indiv in the pop and add it to newPop
             if elitism:
@@ -105,8 +108,18 @@ class Population:
             self.individuals = newPop
             endTime = time.time()
             timeTook = endTime - startTime
-            print(f'Gen {gen} took {round(timeTook)} seconds, Best fitness: {max(self.individuals, key=attrgetter("fitness")).fitness}')
-    
+            
+            #for i in range(len(newPop)):
+            #    list_of_ind_fit.append(self.individuals[i].get_fitness())
+            best_fitness=max(self.individuals, key=attrgetter("fitness")).fitness
+            print(f'Gen {gen+1} took {round(timeTook)} seconds, Best fitness: {best_fitness}')#, St.dev. fitness: {statistics.stdev(list_of_ind_fit)}')
+            self.all_fitness_score.append(best_fitness)
+            #if we found the god bird, let's append the best_fitness to all the remaining generations and break the main for loop, so we save time
+            if best_fitness>99:
+                for j in range(gens-(gen+1)):
+                    self.all_fitness_score.append(best_fitness)
+                break #referred to the main for loop in evolve
+        #print(len(all_fitness_score),all_fitness_score)
 
     def __len__(self):
         return len(self.individuals)
@@ -127,3 +140,6 @@ class Population:
                 elite = ind
         #elite = max(self.individuals, key=attrgetter("fitness"))   #Alternative
         return elite
+    
+
+        

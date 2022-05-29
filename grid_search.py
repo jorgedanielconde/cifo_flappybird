@@ -49,11 +49,11 @@ evolvedBestSolution = pop.get_elite()
 
 #grid search
 params = {
-         'numberOfGenerations':[100, 200],
+         'numberOfGenerations':[100],
          'selectionAlg':[tournament], #fps is another option, Berfin said tournament will probably perform better
-         'tournamentSize':[4, 15, 40],
-         'crossoverAlgo':[single_point_co, cycle_co, pmx_co, arithmetic_co],
-         'mutationAlg':[binary_mutation, swap_mutation, inversion_mutation],
+         'tournamentSize':[10],
+         'crossoverAlgo':[cycle_co, pmx_co],#, arithmetic_co],           #single_point_co has issues with elitism
+         'mutationAlg':[binary_mutation],#, swap_mutation, inversion_mutation],
          'crossoverProbab':[0.9],
          'mutationProbab':[0.1],
          'elitism': [True]
@@ -66,7 +66,7 @@ params = {
 #  Columns: n-th of generation
 #  Rows: fitnesses for each of the pop.evolve in the subsequent for loop 
 # -------------------------------
-df = pd.DataFrame(columns=np.arange(0,100,1).tolist()) 
+df = pd.DataFrame(columns=np.arange(1,101,1).tolist()) 
 print(df)
 
 # this was a test
@@ -76,7 +76,17 @@ print(df)
 keys = list(params)
 for values in itertools.product(*map(params.get, keys)):
     #myfunc(**dict(zip(keys, values)))
-    pop.evolve(*values) #*values unpacks the values of the list of parameters as arguments to the function, otherwise they would be 1 argument
-    evolvedBestSolution = pop.get_elite()
 
-    ##append list of fitness (that has to be created in charles.py) to the df 
+    pop.evolve(*values) #*values unpacks the values of the list of parameters as arguments to the function, otherwise they would be 1 argument
+    #evolvedBestSolution = pop.get_elite()
+
+    #save the string values specifics of each grid search combination in a text file
+    x=str(values)
+    with open('combination_specifics.txt', 'w+') as fh:
+        fh.write(x)
+    
+    #save the list of fitness from charles and append it to the df
+    list_of_fitness = pop.all_fitness_score
+    df = df.append(pd.Series(list_of_fitness, index=np.arange(1,101,1).tolist()), ignore_index=True)
+df
+df.to_csv('df.csv')

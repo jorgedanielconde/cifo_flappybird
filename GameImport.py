@@ -22,14 +22,15 @@ print('Population created: ', pop)
 numberOfGenerations = 100
 selectionAlg = tournament
 tournamentSize = 10  # set to None if selectionAlg is not tournament
-crossoverAlg = pmx_co
+crossoverAlg = cycle_co
 crossoverProbab = 0.8
-mutationAlg = swap_mutation
+mutationAlg = inversion_mutation
 mutationProbab = 0.3
 elitism = True
 
 # do evolution
 pop.evolve(gens = numberOfGenerations, select = selectionAlg, tournamentSize = tournamentSize, crossover = crossoverAlg,
             mutate = mutationAlg, crossoverProbab = crossoverProbab, mutationProbab = mutationProbab, elitism = elitism)
-
+list_of_fitness = pop.all_fitness_score
 evolvedBestSolution = pop.get_elite()
+print(list_of_fitness)
