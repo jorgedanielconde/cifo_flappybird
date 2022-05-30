@@ -17,35 +17,6 @@ problemType = 'max'
 solSize = 6 #aka number of neurons in the hidden layer
 validSet = [-1, 1]
 
-# initialize population
-pop = Population(size = popSize, optim = problemType, sol_size = solSize, valid_set = validSet)
-
-print('Population created: ', pop)
-
-'''
-# define evolution params
-numberOfGenerations = 100
-selectionAlg = fps
-tournamentSize = None  # set to None if selectionAlg is not tournament
-crossoverAlg = single_point_co
-crossoverProbab = 0.8
-mutationAlg = binary_mutation
-mutationProbab = 0.3
-elitism = True
-
-# do evolution
-
-pop.evolve(gens = numberOfGenerations,
-           select = selectionAlg,
-           tournamentSize = tournamentSize, # set to None if selectionAlg is not tournament
-           crossover = crossoverAlg,
-           mutate = mutationAlg,
-           crossoverProbab = crossoverProbab,
-           mutationProbab = mutationProbab,
-           elitism = elitism)
-
-evolvedBestSolution = pop.get_elite()
-'''
 
 #grid search
 params = {
@@ -58,7 +29,6 @@ params = {
          'mutationProbab':[0.1],
          'elitism': [True]
          }
-
 
 
 #df where to store all the evolve output
@@ -77,6 +47,10 @@ list_of_strings_models=[]
 keys = list(params)
 for values in itertools.product(*map(params.get, keys)):
     #myfunc(**dict(zip(keys, values)))
+
+    # initialize population
+    pop = Population(size = popSize, optim = problemType, sol_size = solSize, valid_set = validSet)
+    print('Population created: ', pop)
 
     pop.evolve(*values) #*values unpacks the values of the list of parameters as arguments to the function, otherwise they would be 1 argument
     #evolvedBestSolution = pop.get_elite()

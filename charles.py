@@ -115,7 +115,7 @@ class Population:
             print(f'Gen {gen+1} took {round(timeTook)} seconds, Best fitness: {best_fitness}')#, St.dev. fitness: {statistics.stdev(list_of_ind_fit)}')
             self.all_fitness_score.append(best_fitness)
             #if we found the god bird, let's append the best_fitness to all the remaining generations and break the main for loop, so we save time
-            if best_fitness>=3:
+            if best_fitness>=100:
                 for j in range(gens-(gen+1)):
                     self.all_fitness_score.append(best_fitness)
                 break #referred to the main for loop in evolve
