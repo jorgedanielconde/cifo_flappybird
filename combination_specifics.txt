@@ -1,0 +1,1 @@
+(100, <function tournament at 0x0000017A129CD700>, 10, <function arithmetic_co at 0x0000017A129CD9D0>, <function inversion_mutation at 0x0000017A129CDC10>, 0.9, 0.1, True)

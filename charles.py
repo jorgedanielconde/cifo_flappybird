@@ -67,8 +67,8 @@ class Population:
             )
 
     def evolve(self, gens, select, tournamentSize, crossover, mutate, crossoverProbab, mutationProbab, elitism):
+        self.all_fitness_score=[]
         for gen in range(gens):
-            self.all_fitness_score=[]
             startTime = time.time()
     
             newPop = []
@@ -115,11 +115,11 @@ class Population:
             print(f'Gen {gen+1} took {round(timeTook)} seconds, Best fitness: {best_fitness}')#, St.dev. fitness: {statistics.stdev(list_of_ind_fit)}')
             self.all_fitness_score.append(best_fitness)
             #if we found the god bird, let's append the best_fitness to all the remaining generations and break the main for loop, so we save time
-            if best_fitness>99:
+            if best_fitness>=3:
                 for j in range(gens-(gen+1)):
                     self.all_fitness_score.append(best_fitness)
                 break #referred to the main for loop in evolve
-        #print(len(all_fitness_score),all_fitness_score)
+        #print(len(self.all_fitness_score),self.all_fitness_score)
 
     def __len__(self):
         return len(self.individuals)

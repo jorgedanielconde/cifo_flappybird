@@ -52,8 +52,8 @@ params = {
          'numberOfGenerations':[100],
          'selectionAlg':[tournament], #fps is another option, Berfin said tournament will probably perform better
          'tournamentSize':[10],
-         'crossoverAlgo':[cycle_co, pmx_co],#, arithmetic_co],           #single_point_co has issues with elitism
-         'mutationAlg':[binary_mutation],#, swap_mutation, inversion_mutation],
+         'crossoverAlgo':[cycle_co, pmx_co, arithmetic_co],           #single_point_co has issues with elitism
+         'mutationAlg':[binary_mutation, swap_mutation, inversion_mutation],
          'crossoverProbab':[0.9],
          'mutationProbab':[0.1],
          'elitism': [True]
@@ -72,6 +72,7 @@ print(df)
 # this was a test
 #def myfunc(**args):
 #    print(args)
+list_of_strings_models=[]
 
 keys = list(params)
 for values in itertools.product(*map(params.get, keys)):
@@ -80,13 +81,16 @@ for values in itertools.product(*map(params.get, keys)):
     pop.evolve(*values) #*values unpacks the values of the list of parameters as arguments to the function, otherwise they would be 1 argument
     #evolvedBestSolution = pop.get_elite()
 
-    #save the string values specifics of each grid search combination in a text file
+    #save the string values specifics of each grid search combination and append it to a list
     x=str(values)
-    with open('combination_specifics.txt', 'w+') as fh:
-        fh.write(x)
+    list_of_strings_models.append(x)
     
     #save the list of fitness from charles and append it to the df
     list_of_fitness = pop.all_fitness_score
+    print(list_of_fitness)
     df = df.append(pd.Series(list_of_fitness, index=np.arange(1,101,1).tolist()), ignore_index=True)
+#we save the list of parameters settings to a text file
+with open('combination_specifics.txt', 'w+') as fh:
+        fh.write(list_of_strings_models)
 df
 df.to_csv('df.csv')

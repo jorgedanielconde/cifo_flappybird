@@ -22,7 +22,7 @@ print('Population created: ', pop)
 numberOfGenerations = 100
 selectionAlg = tournament
 tournamentSize = 10  # set to None if selectionAlg is not tournament
-crossoverAlg = cycle_co
+crossoverAlg = arithmetic_co
 crossoverProbab = 0.8
 mutationAlg = inversion_mutation
 mutationProbab = 0.3
