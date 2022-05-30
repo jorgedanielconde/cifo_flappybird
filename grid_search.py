@@ -23,8 +23,8 @@ params = {
          'numberOfGenerations':[100],
          'selectionAlg':[tournament], #fps is another option, Berfin said tournament will probably perform better
          'tournamentSize':[10],
-         'crossoverAlgo':[cycle_co, pmx_co],# arithmetic_co],           #single_point_co has issues with elitism
-         'mutationAlg':[binary_mutation],# swap_mutation, inversion_mutation],
+         'crossoverAlgo':[cycle_co, pmx_co, arithmetic_co],           #single_point_co has issues with elitism
+         'mutationAlg':[binary_mutation, swap_mutation, inversion_mutation],
          'crossoverProbab':[0.8],
          'mutationProbab':[0.2],
          'elitism': [True]
