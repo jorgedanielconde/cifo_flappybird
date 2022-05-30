@@ -420,7 +420,7 @@ def main(win, nn = None):
                     pipes.append(Pipe(WIN_WIDTH))
                     #early stopping
                     if score>=100:
-                        print("God bird found!")
+                        #print("God bird found!")
                         return score
 
 

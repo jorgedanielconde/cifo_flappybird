@@ -12,7 +12,7 @@ import numpy as np
 Individual.calc_fitness = calc_fitness
 
 # define population params
-popSize = 50
+popSize = 25
 problemType = 'max'
 solSize = 6 #aka number of neurons in the hidden layer
 validSet = [-1, 1]
@@ -23,10 +23,10 @@ params = {
          'numberOfGenerations':[100],
          'selectionAlg':[tournament], #fps is another option, Berfin said tournament will probably perform better
          'tournamentSize':[10],
-         'crossoverAlgo':[cycle_co, pmx_co, arithmetic_co],           #single_point_co has issues with elitism
-         'mutationAlg':[binary_mutation, swap_mutation, inversion_mutation],
-         'crossoverProbab':[0.9],
-         'mutationProbab':[0.1],
+         'crossoverAlgo':[cycle_co, pmx_co],# arithmetic_co],           #single_point_co has issues with elitism
+         'mutationAlg':[binary_mutation],# swap_mutation, inversion_mutation],
+         'crossoverProbab':[0.8],
+         'mutationProbab':[0.2],
          'elitism': [True]
          }
 
@@ -65,6 +65,6 @@ for values in itertools.product(*map(params.get, keys)):
     df = df.append(pd.Series(list_of_fitness, index=np.arange(1,101,1).tolist()), ignore_index=True)
 #we save the list of parameters settings to a text file
 with open('combination_specifics.txt', 'w+') as fh:
-        fh.write(list_of_strings_models)
+        fh.write(''.join(list_of_strings_models))
 df
 df.to_csv('df.csv')
