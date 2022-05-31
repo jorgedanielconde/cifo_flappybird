@@ -24,8 +24,8 @@ selectionAlg = tournament
 tournamentSize = 10  # set to None if selectionAlg is not tournament
 crossoverAlg = arithmetic_co
 crossoverProbab = 0.8
-mutationAlg = inversion_mutation
-mutationProbab = 0.3
+mutationAlg = swap_mutation
+mutationProbab = 0.2
 elitism = True
 
 # do evolution
@@ -34,3 +34,4 @@ pop.evolve(gens = numberOfGenerations, select = selectionAlg, tournamentSize = t
 list_of_fitness = pop.all_fitness_score
 evolvedBestSolution = pop.get_elite()
 print(list_of_fitness)
+print(evolvedBestSolution)

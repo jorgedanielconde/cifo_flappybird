@@ -71,8 +71,8 @@ class neural_network(object):
     self.hiddenSize = 6
 
     #weights
-    self.W1 = np.array(weightList[:self.inputSize*self.hiddenSize]).reshape(self.inputSize, self.hiddenSize) # (3x2) weight matrix from input to hidden layer
-    self.W2 = np.array(weightList[self.inputSize*self.hiddenSize:]).reshape(self.hiddenSize,self.outputSize) # (3x1) weight matrix from hidden to output layer
+    self.W1 = np.array(weightList[:self.inputSize*self.hiddenSize]).reshape(self.inputSize, self.hiddenSize) # (3x6) weight matrix from input to hidden layer
+    self.W2 = np.array(weightList[self.inputSize*self.hiddenSize:]).reshape(self.hiddenSize,self.outputSize) # (6x1) weight matrix from hidden to output layer
 
   def forward(self, X):
     #forward propagation through our network

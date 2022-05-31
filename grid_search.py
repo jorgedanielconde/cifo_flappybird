@@ -36,7 +36,7 @@ params = {
 #  Columns: n-th of generation
 #  Rows: fitnesses for each of the pop.evolve in the subsequent for loop 
 # -------------------------------
-df = pd.DataFrame(columns=np.arange(1,101,1).tolist()) 
+df = pd.DataFrame(columns=np.arange(1,101,1).tolist())
 print(df)
 
 # this was a test
